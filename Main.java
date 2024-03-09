@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Inventario inventario = new Inventario();
         Scanner scanner = new Scanner(System.in);
+        Inventario inventario = new Inventario();
 
         while (true) {
             System.out.println("Seleccione una opción:");
@@ -17,10 +17,10 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    inventario.agregarProducto();
+                    inventario.agregarProducto(scanner);
                     break;
                 case 2:
-                    inventario.venderProducto();
+                    inventario.venderProducto(scanner);
                     break;
                 case 3:
                     inventario.mostrarInventario();
@@ -34,13 +34,12 @@ public class Main {
         }
     }
 }
-
 class Producto {
     private String nombre;
-    private int cantidad;
+    private double cantidad;
     private double precio;
 
-    public Producto(String nombre, int cantidad, double precio) {
+    public Producto(String nombre, double cantidad, double precio) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -50,11 +49,11 @@ class Producto {
         return nombre;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -70,23 +69,20 @@ class Inventario {
         productos = new HashMap<>();
     }
 
-    public void agregarProducto() {
-        Scanner scanner = new Scanner(System.in);
+    public void agregarProducto(Scanner scanner) {
         System.out.println("Ingrese el nombre del producto:");
-        String nombre = scanner.nextLine();
+        String nombre = scanner.next();
         System.out.println("Ingrese la cantidad inicial:");
-        int cantidad = scanner.nextInt();
+        double cantidad = Double.parseDouble(scanner.next());
         System.out.println("Ingrese el precio por unidad:");
-        double precio = scanner.nextDouble();
+        double precio = Double.parseDouble(scanner.next());
 
         Producto producto = new Producto(nombre, cantidad, precio);
         productos.put(nombre, producto);
     }
-
-    public void venderProducto() {
-        Scanner scanner = new Scanner(System.in);
+public void venderProducto(Scanner scanner) {
         System.out.println("Ingrese el nombre del producto a vender:");
-        String nombre = scanner.nextLine();
+        String nombre = scanner.next();
 
         if (!productos.containsKey(nombre)) {
             System.out.println("Producto no encontrado.");
